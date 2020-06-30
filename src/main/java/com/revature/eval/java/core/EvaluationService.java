@@ -22,7 +22,13 @@ public class EvaluationService {
 
 		public static long toMilesPerHour(double kilometersPerHour) {
 			// TODO Write an implementation for this method declaration
-			return 0;
+			if (kilometersPerHour < 0) {
+				return -1;
+			} else {
+				long milesPerHour = Math.round(0.62 * kilometersPerHour);
+				return  milesPerHour;
+			}
+//			return 0;
 		}
 
 		/**
@@ -42,7 +48,15 @@ public class EvaluationService {
 		 */
 		public static String printConversion(double kilometersPerHour) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			String result = "Pending" ;
+			if (kilometersPerHour < 0) {
+				result = "Invalid Value" ;
+			} else {
+//				double mPH = (kilometersPerHour / 1.609);
+				int milesPerHour = (int) Math.round(kilometersPerHour / 1.609);
+				result = (kilometersPerHour + " km/h = " + milesPerHour + " mi/h");
+			}
+			return result;
 		}
 	}
 
@@ -67,8 +81,17 @@ public class EvaluationService {
 	 * Value".
 	 */
 	public String printMegaBytesAndKiloBytes(int XX) {
+		String answer = "Pending" ;
+		if (XX < 0) { 
+				answer = ("Invalid Value") ;
+		} else { 
+				int meg = (XX / 1024) ;
+				int kil = (XX % 1024) ;
+				answer = (XX + " KB = " + meg + " MB and " + kil + " KB");
+		}
+		
 		// TODO Write an implementation for this method declaration
-		return null;
+		return answer;
 	}
 
 	/**
@@ -91,9 +114,22 @@ public class EvaluationService {
 	 * If the hourOfDay parameter is less than 0 or greater than 23, return false.
 	 */
 	public boolean shouldWakeUp(boolean isBarking, int hourOfDay) {
+		if (hourOfDay < 0 || hourOfDay > 23) {
+			return false;
+		} else {
+		if (isBarking == true) {
+			if (hourOfDay < 8 || hourOfDay > 22) {
+			return true;
+			} else {
+				return false ;
+			}
+		} else {
+			return false ;
+		}
+		}
 		// TODO Write an implementation for this method declaration
-		return false;
-	}
+}
+		
 
 	/**
 	 * 4. DecimalComparator
