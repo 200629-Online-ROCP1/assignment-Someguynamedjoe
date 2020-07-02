@@ -623,6 +623,14 @@ public class EvaluationServiceTest {
 		}
 		assertEquals(true, result);
 	}
+
+	/*******************************************************************
+	 * Question 7
+	 ******************************************************************/
+	@Test
+	public void testNumberInWord3() {
+		assertEquals("NEGATIVE THREE", evaluationService.printNumberInWord(-3));
+	}
 	
 }
 

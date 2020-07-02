@@ -1,5 +1,7 @@
 package com.revature.eval.java.core;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ public class EvaluationService {
 	static class SpeedConverter {
 
 		public static long toMilesPerHour(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
+			// DONE Write an implementation for this method declaration
 			if (kilometersPerHour < 0) {
 				return -1;
 			} else {
@@ -47,7 +49,7 @@ public class EvaluationService {
 		 * Value"
 		 */
 		public static String printConversion(double kilometersPerHour) {
-			// TODO Write an implementation for this method declaration
+			// DONE Write an implementation for this method declaration
 			String result = "Pending" ;
 			if (kilometersPerHour < 0) {
 				result = "Invalid Value" ;
@@ -90,7 +92,7 @@ public class EvaluationService {
 				answer = (XX + " KB = " + meg + " MB and " + kil + " KB");
 		}
 		
-		// TODO Write an implementation for this method declaration
+		// DONE Write an implementation for this method declaration
 		return answer;
 	}
 
@@ -127,7 +129,7 @@ public class EvaluationService {
 			return false ;
 		}
 		}
-		// TODO Write an implementation for this method declaration
+		// DONE Write an implementation for this method declaration
 }
 		
 
@@ -141,10 +143,28 @@ public class EvaluationService {
 	 * numbers are the same up to three decimal places.
 	 * 
 	 * Otherwise, return false;
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
 	public boolean areEqualByThreeDecimalPlaces(double firstNum, double secondNum) {
-		// TODO Write an implementation for this method declaration
+		// DONE Write an implementation for this method declarationDecimalFormat.setRoundingMode(RoundingMode.FLOOR(
+		
+		firstNum = firstNum * 1000;
+		secondNum = secondNum * 1000;
+		int first = (int) firstNum ;
+		int second = (int) secondNum ;
+		
+//		System.out.println(first);
+//		System.out.println(second);
+
+		if (first == second) {
+			return true;
+	} else {
 		return false;
+	}
 	}
 
 	/**
@@ -160,15 +180,29 @@ public class EvaluationService {
 	static class TeenNumberChecker {
 
 		public static boolean hasTeen(int x, int y, int z) {
-			// TODO Write an implementation for this method declaration
+//			if ((x >= 13 && x <= 19) || (y >= 13 && y <= 19) || (z >= 13 && z <= 19)) {
+//			return true;
+			if (( isTeen(x) || isTeen(y) || isTeen(z) )) {
+				return true;
+			} else {
+			// DONE Write an implementation for this method declaration
 			return false;
 		}
+		}
+	}
 
 		// We can initialize isTeen method first
 		// Then pass the parameter to hasTeen method
 
 		public static boolean isTeen(int number) {
-			// TODO Write an implementation for this method declaration
+			
+			if ((number >= 13) && (number <= 19)) {
+			
+			return true;
+			
+		} else {		
+			
+			// DONE Write an implementation for this method declaration
 			return false;
 		}
 	}
@@ -189,8 +223,18 @@ public class EvaluationService {
 	 * ZZ represents the calculated days.
 	 */
 	public String printYearsAndDays(long minutes) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String answer = ("Pending");
+		if (minutes < 0) {
+			System.out.println("Invalid Value");
+		} else { 
+			long years = (minutes / 525600);
+			long leftovers = (minutes % 525600);
+			long days = (leftovers / 1440);
+			answer = (minutes + " min = " + years + " y and " + days + " d");
+			System.out.println(answer);
+		}
+		// DONE Write an implementation for this method declaration
+		return answer;
 	}
 
 	/**
@@ -203,9 +247,58 @@ public class EvaluationService {
 	 * statement or switch statement whatever is easier for you.
 	 */
 	public String printNumberInWord(int number) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		// DONE Write an implementation for this method declaration
+		if ((number % 1) != 0) {
+			String error = ("OTHER");
+			return error;
+		}
+		String prefix = ("");
+		String word = ("pending");
+		if (number<0) {
+			prefix = "NEGATIVE ";
+		}
+		number = Math.abs(number);
+		switch (number) {
+		case 0: 
+			word=("ZERO");
+			break;
+		case 1: 
+			word=("ONE");
+			break;
+		case 2: 
+			word=("TWO");
+			break;
+		case 3: 
+			word=("THREE");
+			break;
+		case 4: 
+			word=("FOUR");
+			break;
+		case 5: 
+			word=("FIVE");
+			break;
+		case 6: 
+			word=("SIX");
+			break;
+		case 7: 
+			word=("SEVEN");
+			break;
+		case 8: 
+			word=("EIGHT");
+			break;
+		case 9: 
+			word=("NINE");
+			break;
+		default: 
+			word=("OTHER");
+			break;
+		}
+		System.out.println(prefix + word);
+		String answer = (prefix + word);
+		return answer;
+		
+		}
+		
 
 	/**
 	 * 8. Greatest Common Divisor
@@ -227,7 +320,25 @@ public class EvaluationService {
 	 * and there is no resulting remainder.
 	 */
 	public int getGreatestCommonDivisor(int first, int second) {
-		// TODO Write an implementation for this method declaration
+		if ((first < 10) || (second < 10)) {
+			return -1;
+		} else {
+			int divisor = (first);
+			while (divisor > 0) {
+				if ((first % divisor) == 0) {
+					System.out.println("Testing: " + divisor);
+					if ((second % divisor) == 0) {
+						System.out.println(divisor + " is the greatest common divisor.");
+						return divisor;
+					}
+					--divisor;
+				} else {
+					System.out.println(divisor + " is not a divisor of the first number.");
+					--divisor;
+				}
+			}
+		}		
+		// DONE Write an implementation for this method declaration
 		return 0;
 	}
 
@@ -245,8 +356,31 @@ public class EvaluationService {
 	 * invalid value.
 	 */
 	public int sumFirstAndLastDigit(int num) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		if (num < 0) {
+			return -1;
+		} else {
+			int count = 1;
+			int digOne = 0;
+			int digTwo = 0;
+//				LinkedList<Integer> stack = new LinkedList<Integer>();
+				while((num % 10) > 0) {
+					System.out.println(num % 10);
+					int digit = (num%10);
+					if (count > 0) {
+						digOne = digit;
+						--count;
+					} else {
+						if (num < 10) {
+							digTwo = digit;
+						}
+					}
+					num /= 10;
+				}
+				return (digOne + digTwo);
+		
+		}
+		// DONE Write an implementation for this method declaration
+//		return 0;
 	}
 
 	/**
@@ -256,8 +390,15 @@ public class EvaluationService {
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
 	 */
 	public String reverse(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		// DONE Write an implementation for this method declaration
+		String answer = "";
+		char[] split = string.toCharArray();
+		int count = (split.length - 1);
+		while (count >= 0) {
+			answer = (answer + split[count]);
+			--count;
+		}
+		return answer;
 	}
 
 	/**
@@ -268,8 +409,15 @@ public class EvaluationService {
 	 * long name like Portable Network Graphics to its acronym (PNG).
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String answer = "";
+		String[] chopped = phrase.split("[ !@#$%^&*\\-]");
+		for (String word : chopped) {
+			char[] split = word.toCharArray();
+			answer = (answer + split[0]);	
+			answer = answer.toUpperCase();
+		}
+		// DONE Write an implementation for this method declaration
+		return answer;
 	}
 
 	/**
