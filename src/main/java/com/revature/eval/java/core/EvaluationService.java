@@ -2,8 +2,14 @@ package com.revature.eval.java.core;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EvaluationService {
 
@@ -472,18 +478,23 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			if (( sideOne == sideTwo) && (sideOne == sideThree)) {
+			return true;
+		} else {
+			// DONE Write an implementation for this method declaration
 			return false;
 		}
-
+		}
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (( sideOne == sideTwo) || ( sideOne == sideThree) || ( sideTwo == sideThree));	
+			// DONE Write an implementation for this method declaration
+			return true;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if ((sideOne != sideTwo ) && (sideTwo != sideThree));
+			// DONE Write an implementation for this method declaration
+			return true;
 		}
 
 	}
@@ -503,10 +514,39 @@ public class EvaluationService {
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+//		System.out.println(string);
+		string = string.toLowerCase();
+//		System.out.println(string);
+		int answer = 0;
+//		System.out.println(string.length());
+		
+		for (int i = 0 ; i < string.length() ; i++){
+//			System.out.println(i);
+			String snippet = string.substring(i,i+1);
+//			System.out.println(snippet);
+			if ( snippet.matches("z|q")) {
+				answer += 10;
+			} else if ( snippet.matches("j|x")) {
+				answer += 8;
+			} else if ( snippet.matches("k")) {
+				answer += 5;
+			} else if ( snippet.matches("f|h|v|w|y")){
+				answer += 4;
+			} else if ( snippet.matches("b|c|m|p")) {
+				answer += 3;
+			} else if ( snippet.matches("d|g")) {
+				answer += 2;
+			} else if ( snippet.matches("a|e|i|o|u|l|n|r|s|t")) {
+				answer += 1;
+			} else {System.out.println("oops"); //return 0;
+//		System.out.println(answer);
 	}
-
+		}
+//		System.out.println(answer);		
+		return answer;
+	}
+		// DONE Write an implementation for this method declaration
+	
 	/**
 	 * 14. Clean the Phone Number
 	 * 
@@ -541,9 +581,28 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		return null;
-	}
 
+		String answer = "";
+
+		for (int i = 0 ; i < string.length() ; i++){
+			String toClean = string.substring(i,i+1);
+			//			System.out.println(toClean);
+			if ( toClean.matches("0|1|2|3|4|5|6|7|8|9")) {
+				answer = answer + toClean;
+			} else { System.out.println("Filtering " + toClean);
+			}
+		}
+		if ((answer.charAt(0) == 1) || (answer.charAt(3)) == 1){
+			return "Error";
+		}
+
+		if ((answer.length() > 10) || (answer.length() < 10)) {
+			throw new IllegalArgumentException("Incorrect number of digits.");
+		}
+
+		//		System.out.println(answer);
+			return answer;
+	}
 	/**
 	 * 15. Recurring Word Counter
 	 * 
@@ -553,10 +612,25 @@ public class EvaluationService {
 	 * free: 1
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		// DONE Write an implementation for this method declaration
+			Map<String, Integer> nameAndCount = new HashMap<String, Integer>();
+			string = string.replaceAll("\\n", "");
+			System.out.println(string);
+			String[] words = string.split(" |,");
+			for(String word : words) {
+				Integer count = nameAndCount.get(word);
+				if ( count == null ) {
+					nameAndCount.put(word, 1);
+				} else {
+					nameAndCount.put(word, ++count);
+				}
+				
+		
 	}
+			System.out.println(nameAndCount);
 
+			return nameAndCount;
+	}
 	/**
 	 * 16. Armstrong Number
 	 * 
@@ -572,8 +646,33 @@ public class EvaluationService {
 	 * a number is an Armstrong number.
 	 */
 	public boolean isArmstrongNumber(int input) {
+		int eval = 0;
+		int workNumber = input;
+//				System.out.println(input);
+//		String getDigits = int.toString(input);
+		int length = String.valueOf(workNumber).length();
+//		System.out.println(length);
+		int[] digitArray = new int[length];
+		for(int i = 0 ; i < length ; i++) {
+			digitArray[i] = workNumber % 10;
+			workNumber /= 10;
+		}
+//		System.out.println(digitArray[1]);
+		for(int i = 0 ; i < length ; i++) {
+			eval = (int) (eval + Math.pow(digitArray[i], length));
+		}
+		
+//		System.out.println(eval);
+		if (eval == input ) {
+			System.out.println( eval + " equals " + input);
+			return true;
+		} else {
+			System.out.println( eval + " does not equal " + input);
+
 		return false;
+		}
 	}
+	// DONE Write an implementation for this method declaration
 
 	/**
 	 * 17. Prime Factors
@@ -582,11 +681,28 @@ public class EvaluationService {
 	 * evenly divisible by itself and 1.
 	 * 
 	 * Note that 1 is not a prime number.
-	 */
+	 */	
+
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> factorSet = new CopyOnWriteArrayList<Long>();
+		// DONE Write an implementation for this method declaration
+			if (l == 2) {
+				factorSet.add(l);
+				return factorSet;
+			}	
+			for ( long i = 2 ; i < l/2 ; i++ ) {
+				while ( l % i == 0 ) {
+					System.out.println(l + " / " + i);
+					factorSet.add(i);
+					l /= i;
+				}
+			}
+			System.out.println(factorSet);
+			return factorSet;
 	}
+			
+
+	
 
 	/**
 	 * 18. Calculate Nth Prime
@@ -600,8 +716,38 @@ public class EvaluationService {
 	 * numbers, pretend they don't exist and implement them yourself.
 	 */
 	public int calculateNthPrime(int k) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		// DONE Write an implementation for this method declaration
+		System.out.println(k);
+		if (k == 0) {
+			throw new IllegalArgumentException("Number must be positive");		}
+		if (k == 1) {
+			return 2;
+		}		
+		if (k == 2 ) {
+			return 3;
+		}
+		int primeCount = 3;
+		int candidate = 4;
+		int divisor = 2;
+		while (divisor < candidate) {
+			if (divisor == (candidate - 1 )) {
+				System.out.println(candidate + " is prime.");
+				if (primeCount == k) {
+					break;
+				}	
+				primeCount ++;
+				candidate++;
+				divisor = 2;
+			} else if ((candidate % divisor ) != 0) {
+//				System.out.println(candidate + " / " + divisor + " continuing");
+				divisor++;			
+			} else if (( candidate % divisor ) == 0) {
+//				System.out.println(candidate + " is not prime.");
+				candidate++;
+				divisor = 2;
+		}
+	}
+		return candidate;
 	}
 
 	/**
@@ -617,10 +763,30 @@ public class EvaluationService {
 	 * insensitive. Input will not contain non-ASCII symbols.
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
-	}
+		// DONE Write an implementation for this method declaration
+		string = string.toLowerCase();
+		int count = 0;
+//		System.out.println(string);
+		String[] testArray = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+//		System.out.println(testArray[0]);
 
+		for ( int i = 0 ; i < 26 ; i++ ) {
+//			System.out.println(i);
+			if ( string.contains(testArray[i])) {
+//				System.out.println(i);
+				System.out.println(testArray[i] + " matched.");
+				count++;
+			}
+		}
+				if (count == 26) {
+					return true;
+				} else {
+					return false;
+				}
+				
+	}
+		
+	
 	/**
 	 * 20. Sum of Multiples 
 	 * 
@@ -633,8 +799,30 @@ public class EvaluationService {
 	 * The sum of these multiples is 78.
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		return 0;
+//		System.out.println(i);
+//		System.out.println(set[0]);
+//		System.out.println(set[1]);
+		int answer = 0;
+//		System.out.println(set.length);
+		Set<Integer> multSet = new HashSet<Integer>();
+		int count = 1;
+		for (int j = 0 ; j < set.length ; j++) {
+//			System.out.println(j);
+		while ((set[j] * count) < i) {
+			Integer nextMult = (set[j] * count);
+//			System.out.println(nextMult);
+			multSet.add(nextMult);
+			count++;
+		} count = 1;
+		}
+//		System.out.println(multSet);
+		
+		for (Integer e : multSet) answer += e ;
+		System.out.println(answer);
+		return answer;
 	}
+
+
 	
 	/**
 	 * 21. Three Magic Numbers
@@ -647,7 +835,13 @@ public class EvaluationService {
 	 */
 	
 	public int[] threeLuckyNumbers() {
-		return null;
+		int[] wheels = new int[3];
+		wheels[0] = (int)(Math.random() * (100 - 1) + 1);
+		wheels[1] = (int)(Math.random() * (100 - 1) + 1);
+		wheels[2] = (int)(Math.random() * (100 - 1) + 1);
+
+
+		return wheels;
 	}
 	
 	/*
@@ -661,6 +855,7 @@ public class EvaluationService {
 	 */
 	
 	public int guessingGame(int x, int y) {
-		return 0;
+		int rando = (int)(Math.random() * (x - y) + y);
+		return rando;
 	}
 }
