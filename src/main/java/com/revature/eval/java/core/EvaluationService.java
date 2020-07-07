@@ -486,19 +486,23 @@ public class EvaluationService {
 		}
 		}
 		public boolean isIsosceles() {
-			if (( sideOne == sideTwo) || ( sideOne == sideThree) || ( sideTwo == sideThree));	
+			if (( sideOne == sideTwo) || ( sideOne == sideThree) || ( sideTwo == sideThree)) {	
 			// DONE Write an implementation for this method declaration
 			return true;
+		} else {
+			return false;
 		}
-
+		}
 		public boolean isScalene() {
-			if ((sideOne != sideTwo ) && (sideTwo != sideThree));
+			if ((sideOne != sideTwo ) && (sideTwo != sideThree)) {
 			// DONE Write an implementation for this method declaration
 			return true;
+		} else {
+			return false;
 		}
 
 	}
-
+	}
 	/**
 	 * 13. Scrabble Score
 	 * 
@@ -686,17 +690,25 @@ public class EvaluationService {
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		List<Long> factorSet = new CopyOnWriteArrayList<Long>();
 		// DONE Write an implementation for this method declaration
-			if (l == 2) {
-				factorSet.add(l);
-				return factorSet;
+			while (l % 2 == 0) {
+				long dumbLong = 2;
+				factorSet.add(dumbLong);
+				l /= 2;
 			}	
-			for ( long i = 2 ; i < l/2 ; i++ ) {
+			for ( long i = 3 ; i < l / 2 ; i++ ) {
+//				System.out.println(l/2);
+//				System.out.println(i);
 				while ( l % i == 0 ) {
-					System.out.println(l + " / " + i);
+					System.out.println(l + " / " + i + " = " + l/i);
 					factorSet.add(i);
 					l /= i;
+					
 				}
+				
 			}
+			if(l>2) {
+				factorSet.add(l);
+		}
 			System.out.println(factorSet);
 			return factorSet;
 	}
